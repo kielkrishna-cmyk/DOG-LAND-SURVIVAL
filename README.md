@@ -1,2 +1,109 @@
 # DOG-LAND-SURVIVAL
 Our game is a survival adventure where players use dog companions with unique physical traits to battle enemies, earn rewards, and breed offspring, allowing them to observe inherited traits and phenotypic ratios in action.
+[dogland.html](https://github.com/user-attachments/files/24661630/dogland.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOG LAND SURVIVAL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #87CEEB;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        #game-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            animation: moveBackground 30s linear infinite;
+        }
+        @keyframes moveBackground {
+            from { left: 0; }
+            to { left: -100%; }
+        }
+        #dog {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background-image: url('https://www.pngkey.com/png/detail/231-2314814_cartoon-dog-png.png');
+            background-size: cover;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="background"></div>
+        <div id="dog"></div>
+        <div id="controls">
+            <button id="play-btn">Play</button>
+            <button id="level-up-btn">Level Up Dog (20 coins)</button>
+            <button id="trade-btn">Trade Dog</button>
+            <p id="status"></p>
+            <p id="inventory">Coins: 0 | Dog Level: 1</p>
+        </div>
+    </div>
+
+    <script>
+        let coins = 0;
+        let dogLevel = 1;
+
+        const status = document.getElementById('status');
+        const inventory = document.getElementById('inventory');
+
+        document.getElementById('play-btn').addEventListener('click', function() {
+            let success = Math.random() > 0.3; // 70% success rate
+            if (success) {
+                coins += 10;
+                status.textContent = 'You defeated a zombie! Earned 10 coins.';
+            } else {
+                status.textContent = 'The zombie got you! Try again.';
+            }
+            updateInventory();
+        });
+
+        document.getElementById('level-up-btn').addEventListener('click', function() {
+            if (coins >= 20) {
+                coins -= 20;
+                dogLevel += 1;
+                status.textContent = 'Your dog leveled up!';
+            } else {
+                status.textContent = 'Not enough coins to level up.';
+            }
+            updateInventory();
+        });
+
+        document.getElementById('trade-btn').addEventListener('click', function() {
+            status.textContent = 'Trading is not available yet!';
+        });
+
+        function updateInventory() {
+            inventory.textContent = 'Coins: ' + coins + ' | Dog Level: ' + dogLevel;
+        }
+    </script>
+</body>
+</html>
